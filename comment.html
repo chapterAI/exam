@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>评论</title>
+</head>
+<style>
+    #bold-large{
+        font-weight: 500; 
+        font-size: 24px;
+        margin:10px 0 20px 0;
+    }
+
+    .text-deco{
+        font-weight: 500;
+        margin: 20px  0 0 0px;
+    }
+
+    #textname{
+        width: 50vw;
+    }
+
+    #comment{
+        width: 50vw;
+        height:50px;
+    }
+
+    #submit{
+        color: white;
+        background-color: blue;
+        border: blue;
+        width: 60px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        margin-top: 30px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+
+
+</style>
+<script>
+    function mysubmit(){
+        //获取
+        var name = document.getElementById('textname').value;
+        var content = document.getElementById('comment').value;
+        var comment = [name,content];
+        var submit_succ = false;
+        //检测
+        comment = oncheck(comment);
+        //创建加入
+        if(comment){
+            submit_succ = true;
+            var mdiv = document.createElement("div");
+            mdiv.style.height = "30px";
+            mdiv.style["line-height"] = "30px";
+            mdiv.style.width = "50vw";
+            mdiv.style.color = "white";
+            mdiv.style["padding-left"] = "20px";
+            mdiv.style.backgroundColor = "#5070ff";
+            mdiv.innerHTML = comment[0]+"说"+comment[1];
+            document.body.appendChild(mdiv);
+        }
+        //提交成功后源数据清空
+        if(submit_succ){
+            document.getElementById('textname').value = "";
+            document.getElementById('comment').value = ""; 
+        }
+
+    }
+
+    /*
+    *参数数组输入，返回一个修改好的数组(将开头的空格全部删除)
+    *如果有有元素只有空格或没有值，则返回false
+    */
+    function oncheck(comment){
+        for(var i=0;i<comment.length;i++){
+            comment[i] = comment[i].replace(/^\s{0,}/ig,'');
+            // alert(comment[i]);
+            if(comment[i]==''){
+                return false;
+            }
+        }
+        return comment;
+    }
+</script>
+<body>
+    <p id='bold-large'>请输入你的评论</p>
+    <form>
+        <div class="text-deco">你的姓名</div> 
+        <input type="text" id="textname" placeholder="your name">
+        <div class="text-deco">你的评论</div>
+        <textarea id="comment"></textarea>
+        <br>
+        <div id='submit' onclick="mysubmit()">submit</div>
+    </form>
+    <p id="bold-large">评论区</p>
+</body>
+</html>
